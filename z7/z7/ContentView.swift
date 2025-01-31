@@ -2,23 +2,46 @@
 //  ContentView.swift
 //  z7
 //
-//  Created by Alexander Zybailo on 31/01/2025.
-//
 
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = NotesViewModel()
+    @State private var newNoteText: String = ""
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            VStack {
+                TextField("Enter note", text: $newNoteText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                Button("Add Note") {
+                    guard !newNoteText.isEmpty else { return }
+                    viewModel.addNote(newNoteText)
+                    newNoteText = ""
+                }
+                .padding()
+                
+                Button("Clear All") {
+                    viewModel.removeAllNotes()
+                }
+                .padding()
+                
+                List {
+                    ForEach(viewModel.notes.indices, id: \..self) { index in
+                        HStack {
+                            Text(viewModel.notes[index].text)
+                            Spacer()
+                            Button("Delete") {
+                                viewModel.removeNote(at: index)
+                            }
+                            .foregroundColor(.red)
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Notes")
         }
-        .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }

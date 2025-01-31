@@ -2,35 +2,101 @@
 //  z7Tests.swift
 //  z7Tests
 //
-//  Created by Alexander Zybailo on 31/01/2025.
-//
 
 import XCTest
 @testable import z7
 
 final class z7Tests: XCTestCase {
-
+    var vm: NotesViewModel!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        vm = NotesViewModel()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        vm = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testEmptyNotes() {
+        XCTAssertTrue(vm.notes.isEmpty)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testAddNote() {
+        vm.addNote("Test Note")
+        XCTAssertEqual(vm.notes.count, 1)
+        XCTAssertEqual(vm.notes.first?.text, "Test Note")
+    }
+    
+    func testAddWhitespaceWithTextNote() {
+        vm.addNote("   Test Note   ")
+        XCTAssertEqual(vm.notes.count, 1)
+        XCTAssertEqual(vm.notes.first?.text, "Test Note")
+    }
+    
+    func testAddNewLineWithTextNote() {
+        vm.addNote("Test Note\n")
+        XCTAssertEqual(vm.notes.count, 1)
+        XCTAssertEqual(vm.notes.first?.text, "Test Note")
+    }
+        
+    func testAddEmptyNote() {
+        vm.addNote("")
+        XCTAssertEqual(vm.notes.count, 0)
+    }
+        
+    func testAddWhitespaceNote() {
+        vm.addNote("   ")
+        XCTAssertEqual(vm.notes.count, 0)
+    }
+    
+    func testAddNewLineNote() {
+        vm.addNote("\n")
+        XCTAssertEqual(vm.notes.count, 0)
+    }
+    
+    func testRemoveNote() {
+        vm.addNote("Test Note")
+        vm.removeNote(at: 0)
+        XCTAssertTrue(vm.notes.isEmpty)
+    }
+    
+    func testFindNote() {
+        vm.addNote("Test Note")
+        let idx = vm.notes.firstIndex(where: { $0.text == "Test Note" })
+        XCTAssertEqual(idx, 0)
+    }
+    
+    func testFindNonExistingNote() {
+        vm.addNote("Test Note")
+        let idx = vm.notes.firstIndex(where: { $0.text == "Test" })
+        XCTAssertEqual(idx, nil)
+    }
+    
+    func testRemoveNoteOutOfBounds() {
+        vm.removeNote(at: 0)
+        XCTAssertEqual(vm.notes.count, 0)
+    }
+    
+    func testMultipleNotes() {
+        vm.addNote("Note 1")
+        vm.addNote("Note 2")
+        XCTAssertEqual(vm.notes.count, 2)
+    }
+    
+    func testClearAllNotes() {
+        vm.addNote("Note 1")
+        vm.addNote("Note 2")
+        vm.removeAllNotes()
+        XCTAssertTrue(vm.notes.isEmpty)
+    }
+    
+    func testNoteExists() {
+        vm.addNote("Unique Note")
+        XCTAssertTrue(vm.noteExists("Unique Note"))
+    }
+    
+    func testNoteDoesNotExist() {
+        XCTAssertFalse(vm.noteExists("Nonexistent Note"))
     }
 
 }

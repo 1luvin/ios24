@@ -13,3 +13,5 @@ To change the status of a task, just click on it.
 ### Task 5 ✅
 
 ### Task 6 ✅
+
+### Task 7 ✅

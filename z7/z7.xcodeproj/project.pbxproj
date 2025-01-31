@@ -29,9 +29,32 @@
 		091032B12D4D061B001BC495 /* z7UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = z7UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		091032C82D4D06A6001BC495 /* Exceptions for "z7" folder in "z7Tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Note.swift,
+				NotesViewModel.swift,
+			);
+			target = 091032A62D4D061B001BC495 /* z7Tests */;
+		};
+		091032C92D4D06A6001BC495 /* Exceptions for "z7" folder in "z7UITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Note.swift,
+				NotesViewModel.swift,
+			);
+			target = 091032B02D4D061B001BC495 /* z7UITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		091032992D4D061A001BC495 /* z7 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				091032C82D4D06A6001BC495 /* Exceptions for "z7" folder in "z7Tests" target */,
+				091032C92D4D06A6001BC495 /* Exceptions for "z7" folder in "z7UITests" target */,
+			);
 			path = z7;
 			sourceTree = "<group>";
 		};

@@ -2,8 +2,6 @@
 //  z7UITestsLaunchTests.swift
 //  z7UITests
 //
-//  Created by Alexander Zybailo on 31/01/2025.
-//
 
 import XCTest
 

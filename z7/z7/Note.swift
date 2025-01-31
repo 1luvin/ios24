@@ -2,7 +2,11 @@
 //  Note.swift
 //  z7
 //
-//  Created by Alexander Zybailo on 31/01/2025.
-//
+
 
 import Foundation
+
+struct Note: Identifiable {
+    let id = UUID()
+    var text: String
+}
